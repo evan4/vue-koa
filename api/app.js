@@ -1,25 +1,14 @@
 const Koa = require('koa');
-const db = require('./db')
 const cors = require('@koa/cors');
-const router = require('koa-router')();
-//const indexRoutes = require('./routes/index');
-const PicturesController = require('./controllers/PicturesController');
+const logger = require('koa-logger');
+
+const picturesRoutes = require('./routes/pictures');
+
 const app = new Koa();
 app.use(cors());
+app.use(logger());
 
-router.get('/lists', list)
-
-app.use(router.routes());
-
-async function list(ctx) {
-  
-  await db.query('SELECT * FROM pictures')
-  .then((res) => {
-    ctx.body = res.rows
-  })
-  .catch(e => console.error(e.stack))
-  
-}
+app.use(picturesRoutes.routes());
 
 const PORT = process.env.PORT || 3000;
 
