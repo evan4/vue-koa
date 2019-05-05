@@ -1,10 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+     <b-navbar toggleable="lg" type="dark" variant="info">
+
+    <router-link class="navbar-brand" to="/"><img src="/img/consulting.com_logo@2x.png" alt="logo"></router-link>
+
+<router-link class="navbar-brand" to="/">Home</router-link>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/about">About</router-link>
+        </li>
+
+        <li class="nav-item">
+          <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+  <router-view/>
   </div>
 </template>
 
@@ -16,14 +39,9 @@
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.navbar-brand{
+  img{
+      width: 159px;
   }
 }
 </style>
