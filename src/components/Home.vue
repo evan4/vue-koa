@@ -5,7 +5,7 @@
         <div class="container">
           <h1 class="jumbotron-heading">Superpowers For Entrepreneurs</h1>
           <p class="lead text-muted">
-            <span class="xlarge-line-break">Consulting.com breaks business down to basic building blocks</span> 
+            <span class="xlarge-line-break">Consulting.com breaks business down to basic building blocks</span>
             (like Lego) and tells you how to assemble them for success.
           </p>
         </div>

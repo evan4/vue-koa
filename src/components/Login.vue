@@ -14,8 +14,11 @@
 </template>
 
 <script>
-export default {
 
+export default {
+  created() {
+    this.$store.dispatch('admin/getUser');
+  },
 };
 </script>
 

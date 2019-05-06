@@ -1,12 +1,7 @@
-const { Pool } = require('pg')
+const { Pool } = require('pg');
+const config = require('../config/db_conf')
 
-const pool = new Pool({
-    host: 'localhost', 
-    port: 5432,
-    database: 'complexapi',
-    user: 'testuser',
-    password: 'pass',
-  })
+const pool = new Pool(config)
 
 module.exports = {
   query: (text, params, callback) => {
