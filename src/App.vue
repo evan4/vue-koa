@@ -1,7 +1,9 @@
 <template>
   <div id="app">
      <b-navbar toggleable="lg" type="dark" variant="info">
-    <router-link class="navbar-brand" to="/"><img src="/img/consulting.com_logo@2x.png" alt="logo"></router-link>
+    <router-link class="navbar-brand" to="/">
+      <img src="/img/consulting.com_logo@2x.png" alt="logo">
+    </router-link>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>

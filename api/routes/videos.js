@@ -1,16 +1,16 @@
 const Router = require('koa-router');
 const router = new Router();
 
-const PicturesController = require('../controllers/PicturesController');
+const VideosController = require('../controllers/VideosController');
 
-router.get('/pictures', async (ctx) => {
+router.get('/videos', async (ctx) => {
 
   let limit = ctx.request.query.limit;
   limit =  !Number.isNaN(Number(ctx.request.query.limit)) ? limit : 0;
-  
-  const pictures = new PicturesController();
 
-  ctx.body = await pictures.getPictures(limit)
+  const videos = new VideosController();
+
+  ctx.body = await videos.getVideos(limit)
 })
 
 module.exports = router;
