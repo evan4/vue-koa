@@ -1,10 +1,12 @@
-const Picture = require('../models/Picture');
+const Picture = require( '../models/Picture' );
 
 class PicturesController {
- 
-  async getPictures(limit) {
+
+  async getPictures( limit ) {
+
     const model = new Picture();
-    return model.getPicture(limit); 
+    return model.getPicture( limit );
+
   }
 
 }

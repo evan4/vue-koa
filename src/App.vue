@@ -15,7 +15,7 @@
           <router-link class="nav-link" to="/about">About</router-link>
         </li>
 
-        
+
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -42,18 +42,22 @@
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex';
 
 export default {
+  created() {
+    this.$store.dispatch('admin/refreshToken');
+  },
   computed: {
-      ...mapGetters('admin', ['email'])
+    ...mapGetters('admin', ['email']),
   },
   methods: {
-      logoutuser(){
-          this.$store.commit('admin/logoutuser');
-      }
-  }
-}
+    logoutuser() {
+      this.$store.commit('admin/logoutuser');
+    },
+  },
+};
 </script>
 
 <style lang="scss">

@@ -16,6 +16,8 @@ const pictures = {
     },
   },
   actions: {
+
+    // получить список картинок из БД
     getPictures({ commit }, payload) {
       const limit = !Number.isNaN(Number(payload.limit)) ? payload.limit : 0;
       axios.get(`http://127.0.0.1:3000/pictures?limit=${limit}`)

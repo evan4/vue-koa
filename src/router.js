@@ -4,12 +4,13 @@ import Home from './components/Home.vue';
 import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import Dashboard from './components/Dashboard.vue';
+import NotFound from './components/404/index.vue';
+import store from './store';
 
 Vue.use(Router);
-
-export default new Router({
+console.log(store.state.admin.email !== '');
+const routes = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
@@ -39,5 +40,26 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
     },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound,
+    },
   ],
 });
+
+routes.beforeEach((to, from, next) => {
+  if (to.fullPath === '/login') {
+    if (store.state.admin.email !== '') {
+      next('/dashboard');
+    }
+  }
+  if (to.fullPath === '/dashboard') {
+    if (store.state.admin.email === '') {
+      next('/login');
+    }
+  }
+  next();
+});
+
+export default routes;

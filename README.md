@@ -1,29 +1,32 @@
 # complex
 
-## Project setup
+Приложение vue (front) и koa (backend)
+Представляет собой сайт-визитку с регистрацией новых пользователей
+В качестве базы данных задействано PostgreSQL
+Дамп базы в корне проекта в файле complexapi.sql.gz
+Пароль у пользователей secret
+
+## Развертывание проекта
+В корне проекта выполнить для установки зависимостей vue
 ```
 yarn install
 ```
+Далее, перейти в директорию api и выполнить для установки зависимостей koa
+```
+npm install
+```
 
-### Compiles and hot-reloads for development
+### Запуск компилятора для разработки
 ```
 yarn run serve
 ```
 
-### Compiles and minifies for production
+### Однократный запуск компилятора.для production
 ```
 yarn run build
 ```
 
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
+### Запуск eslint и исправление ошибок.
 ```
 yarn run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

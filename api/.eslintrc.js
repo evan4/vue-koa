@@ -66,6 +66,8 @@ module.exports = {
             "blocks": "always",
             "classes": "always",
             "switches": "always"
-        }]
+        }],
+        "class-methods-use-this": 0,
+        "no-console": 0
     }
 };

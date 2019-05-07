@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mt-3 font-weight-normal">Please sign in</h1>
     <div v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul class="list-unstyled">
@@ -9,28 +9,25 @@
     </div>
     <form  @submit.prevent="onSubmit"
     class="form-signin">
-        
+
         <div class="form-group">
-          <input type="email" 
+          <input type="email"
             v-model.trim="formData.email"
-            class="form-control" 
-            id="exampleInputEmail1" 
-            aria-describedby="emailHelp" 
+            class="form-control"
             placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-          <input type="password" 
+          <input type="password"
             v-model.trim="formData.password"
-            class="form-control" 
-            id="exampleInputPassword1" 
+            class="form-control"
+            id="exampleInputPassword1"
             placeholder="Password">
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
     <p class="text-danger"
-                    v-if="authFailed">Please check your email or password</p> 
+                    v-if="authFailed">Please check your email or password</p>
   </div>
 </template>
 
@@ -38,26 +35,26 @@
 import { mapGetters } from 'vuex';
 
 export default {
-   data(){
-      return{
-          errors: false,
-          formData: {
-              email: '',
-              password: ''
-          }
-      }
+  data() {
+    return {
+      errors: false,
+      formData: {
+        email: '',
+        password: '',
+      },
+    };
   },
   computed: {
-      ...mapGetters('admin', ['authFailed'])
+    ...mapGetters('admin', ['authFailed']),
   },
   methods: {
-    onSubmit(){
+    onSubmit() {
       this.errors = [];
       if (!this.formData.email) {
-        this.errors.push("Name required.");
+        this.errors.push('Email required.');
       }
       if (!this.formData.password) {
-        this.errors.push("Password required.");
+        this.errors.push('Password required.');
       }
       if (!this.errors.length) {
         this.$store.dispatch('admin/singin', this.formData);
@@ -65,13 +62,13 @@ export default {
     },
   },
   destroyed() {
-      this.errors = [];
-      this.formData = {
-          email: '',
-          password: ''
-      };
-      this.$store.commit('admin/authFailed', 'reset');
-  }
+    this.errors = [];
+    this.formData = {
+      email: '',
+      password: '',
+    };
+    this.$store.commit('admin/authFailed', 'reset');
+  },
 };
 </script>
 

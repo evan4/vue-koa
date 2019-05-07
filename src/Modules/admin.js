@@ -12,43 +12,54 @@ const admin = {
     authFailed: false,
   },
   getters: {
-    email(state){
+    email(state) {
       return state.email;
     },
-    authFailed(state){
+    authFailed(state) {
       return state.authFailed;
     },
     users(state) {
       return state.users;
     },
-    
+
   },
   mutations: {
     getUsers(state, payload) {
       state.users = payload;
     },
     authuser(state, authData) {
-      const {email, type } = authData;
+      const { email, type } = authData;
       state.email = email;
-      
+
       if (type === 'singin') {
         router.push('dashboard');
       }
     },
-    authFailed(state, type){
+    authFailed(state, type) {
       if (type === 'reset') {
-          state.authFailed = false;
-      }else{
-          state.authFailed = true;
+        state.authFailed = false;
+      } else {
+        state.authFailed = true;
       }
     },
-    logoutuser(state){
+    logoutuser(state) {
       state.email = '';
       localStorage.removeItem('email');
-      router.push('/')
+      router.push('/');
     },
   },
   actions: {
+    refreshToken({ commit }) {
+      const email = localStorage.getItem('email');
+      if (email) {
+        const authData = {
+          email,
+        };
+        commit('authuser', authData);
+      }
+    },
+
+    // получение списка пользователей
     getUsers({ commit }) {
       axios.get('http://127.0.0.1:3000/users')
         .then((response) => {
@@ -58,25 +69,48 @@ const admin = {
           console.log(error);
         });
     },
+
+    // аунтефикация пользователя в системе
     singin({ commit }, payload) {
-      axios.post('http://127.0.0.1:3000/user',  {
-        ...payload
+      axios.post('http://127.0.0.1:3000/user', {
+        ...payload,
       })
         .then((response) => {
-          if(response.data){
-            commit("authuser", {
+          if (response.data) {
+            commit('authuser', {
               ...response.data,
-              type: 'singin'
+              type: 'singin',
             });
             localStorage.setItem('email', response.data.email);
-          }else{
+          } else {
             commit('authFailed');
           }
         })
         .catch((error) => {
-            commit('authFailed');
+          commit('authFailed');
         });
-    }
+    },
+
+    // создание нового пользователя
+    singup({ commit }, payload) {
+      axios.post('http://127.0.0.1:3000/singup', {
+        ...payload,
+      })
+        .then((response) => {
+          if (response.data) {
+            commit('authuser', {
+              ...response.data,
+              type: 'singin',
+            });
+            localStorage.setItem('email', response.data.email);
+          } else {
+            commit('authFailed');
+          }
+        })
+        .catch((error) => {
+          commit('authFailed');
+        });
+    },
   },
 };
 
