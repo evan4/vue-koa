@@ -10,9 +10,13 @@ router.get('/users', async (ctx) => {
 })
 .post('/user', koaBody({ multipart: true }),
     async (ctx) => {
-        const  { email, password } = ctx.request.body
-        ctx.body = await ctx.request.body
-        //users.getUser(email, password);
+        const  data = ctx.request.body;
+        ctx.body = await users.getUser(data);
+})
+.post('/singin', koaBody({ multipart: true }),
+    async (ctx) => {
+        const  data = ctx.request.body;
+        ctx.body = await users.singin(data);
 })
 
 module.exports = router;

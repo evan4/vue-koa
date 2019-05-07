@@ -46,7 +46,7 @@
 
           </div>
         </div>
-        <b-modal ref="modal" size="lg">
+        <b-modal ref="modal" size="lg" hide-footer>
           <template slot="modal-title">{{title}}</template>
             <div class="videoWrapper">
               <iframe

@@ -15,13 +15,24 @@
           <router-link class="nav-link" to="/about">About</router-link>
         </li>
 
-        <li class="nav-item">
-          <router-link class="nav-link" to="/login">Login</router-link>
-        </li>
+        
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
+        <li class="nav-item" v-if="!email">
+          <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+        <li class="nav-item" v-if="!email">
+          <router-link class="nav-link" to="/register">Singup</router-link>
+        </li>
+        <li class="nav-item" v-if="email">
+          <a href="#" class="nav-link router-link-exact-active router-link-active"
+            @click.prevent="logoutuser">Logout</a>
+        </li>
+        <li class="nav-item" v-if="email">
+          <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+        </li>
 
       </b-navbar-nav>
     </b-collapse>
@@ -29,6 +40,21 @@
   <router-view/>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+      ...mapGetters('admin', ['email'])
+  },
+  methods: {
+      logoutuser(){
+          this.$store.commit('admin/logoutuser');
+      }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

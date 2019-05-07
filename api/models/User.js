@@ -7,14 +7,24 @@ class User {
             .catch(e => console.error(e.stack))
     }
 
-    async getUser(email, password){
-        const text = 'SELECT name, email, password, role FROM users WHERE email = $1 AND password = $2'
-        const values = [email, password]
+    async getUser(data){
+        const text = 'SELECT name, email, role FROM users WHERE email = $1 AND password = $2';
+        const values = Object.values(data)
 
-        return db.query(text)
+        return db.query(text, values)
             .then( res => res.rows[0] )
             .catch(e => console.error(e.stack))
     }
+    
+    async createuser(data){
+        const text = 'SELECT name, email, password, role FROM users WHERE email = $1 AND password = $2';
+        const values = Object.values(data)
+
+        return db.query(text, values)
+            .then( res => res.rows[0] )
+            .catch(e => console.error(e.stack))
+    }
+    
 }
 
 module.exports = User;

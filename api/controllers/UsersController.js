@@ -1,15 +1,25 @@
 const User = require('../models/User');
+const model = new User();
+const bcrypt = require('bcrypt');
 
 class UsersController {
 
+  constructor(){
+    this.saltRounds = 10;
+  }
+
   async getUsers() {
-    const model = new User();
     return model.getUsers();
   }
 
-  async getUser(email, password) {
-    const model = new User();
-    return model.getUser(email, password);
+  async getUser(data) {
+    const res = model.getUser(data);
+
+    return res;
+  }
+  
+  async newUser(name, email, password){
+
   }
 }
 
