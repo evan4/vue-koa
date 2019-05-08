@@ -22,17 +22,17 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <li class="nav-item" v-if="!email">
+        <li class="nav-item" v-if="!isAuth">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
-        <li class="nav-item" v-if="!email">
+        <li class="nav-item" v-if="!isAuth">
           <router-link class="nav-link" to="/register">Singup</router-link>
         </li>
-        <li class="nav-item" v-if="email">
+        <li class="nav-item" v-if="isAuth">
           <a href="#" class="nav-link router-link-exact-active router-link-active"
             @click.prevent="logoutuser">Logout</a>
         </li>
-        <li class="nav-item" v-if="email">
+        <li class="nav-item" v-if="isAuth">
           <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
         </li>
 
@@ -48,11 +48,11 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  created() {
-    this.$store.dispatch('admin/refreshToken');
+  created(){
+    this.$store.dispatch('admin/refreshToken')
   },
   computed: {
-    ...mapGetters('admin', ['email']),
+      ...mapGetters('admin', ['isAuth'])
   },
   methods: {
     logoutuser() {

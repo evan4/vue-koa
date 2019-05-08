@@ -6,14 +6,12 @@ const admin = {
   state: {
     email: '',
     token: '',
-    refresh: '',
     users: [],
-    refreshLoading: true,
     authFailed: false,
   },
   getters: {
-    email(state) {
-      return state.email;
+    isAuth(state){
+      return state.token ? true : false;
     },
     authFailed(state) {
       return state.authFailed;
@@ -21,7 +19,6 @@ const admin = {
     users(state) {
       return state.users;
     },
-
   },
   mutations: {
     getUsers(state, payload) {
@@ -53,16 +50,32 @@ const admin = {
       localStorage.removeItem('email');
       router.push('/');
     },
+    refreshToken(state, payload){
+      state.token = localStorage.getItem('token');
+      state.email = localStorage.getItem('email');
+    }
   },
   actions: {
     refreshToken({ commit }) {
-      const email = '';
-      if (email) {
-        const authData = {
-          email,
-        };
-        commit('authuser', authData);
+      const token = localStorage.getItem('token');
+      
+      if (token) {
+        
+        axios.post('http://127.0.0.1:3000/verify',{
+          headers: {Authorization: `Bearer ${token}`}
+        })
+        .then((response) => {
+          if(response === false){
+            commit('logoutuser');
+          }else{
+            commit('refreshToken');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       }
+      
     },
 
     // получение списка пользователей
