@@ -13,7 +13,7 @@
 
       <div class="album py-5 bg-light">
         <div class="container">
-          <h1 class="jumbotron-heading">Pictures</h1>
+          <h1 class="jumbotron-heading text-center">Pictures</h1>
           <div class="row">
             <div class="col-md-4" v-for="(picture, index) in pictures" :key="index">
               <div class="card mb-4 box-shadow">
@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <h1 class="jumbotron-heading">Videos</h1>
+          <h1 class="jumbotron-heading text-center">Videos</h1>
           <div class="row">
             <div class="col-md-4" v-for="(video, index) in videos" :key="index">
               <div class="card mb-4 box-shadow">

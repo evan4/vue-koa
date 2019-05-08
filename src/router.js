@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './components/Home.vue';
+import Pictures from './components/Pictures.vue';
 import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import Dashboard from './components/Dashboard.vue';
@@ -8,7 +9,7 @@ import NotFound from './components/404/index.vue';
 import store from './store';
 
 Vue.use(Router);
-console.log(store.state.admin.email !== '');
+
 const routes = new Router({
   mode: 'history',
   routes: [
@@ -16,6 +17,11 @@ const routes = new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/pictures',
+      name: 'pictures',
+      component: Pictures,
     },
     {
       path: '/about',
@@ -48,14 +54,16 @@ const routes = new Router({
   ],
 });
 
+// защита роутеров Navigation Guards
 routes.beforeEach((to, from, next) => {
+  let token = localStorage.getItem('token')
   if (to.fullPath === '/login') {
-    if (store.state.admin.email !== '') {
+    if (token !== null) {
       next('/dashboard');
     }
   }
   if (to.fullPath === '/dashboard') {
-    if (store.state.admin.email === '') {
+    if (token === null) {
       next('/login');
     }
   }

@@ -22,7 +22,7 @@ class User {
   async getUser( data ) {
 
     const { email, password } = data;
-    const text = 'SELECT name, email, password, role FROM users WHERE email = $1';
+    const text = 'SELECT id, name, email, password, role FROM users WHERE email = $1';
     const values = [ email ];
 
     return db.query( text, values )

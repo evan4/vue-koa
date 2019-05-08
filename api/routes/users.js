@@ -1,3 +1,4 @@
+
 const Router = require( 'koa-router' );
 
 const router = new Router();
@@ -13,11 +14,26 @@ router.get( '/users', async ( ctx ) => {
 
 } )
   .post(
+    '/verify', koaBody( { multipart: true } ),
+    async ( ctx ) => {
+      
+      const token = ctx.request.headers["authorization"]
+
+      let res = await users.verufyUser( token );
+      
+      ctx.body = res;
+
+    },
+  )
+  .post(
     '/user', koaBody( { multipart: true } ),
     async ( ctx ) => {
 
       const data = ctx.request.body;
-      ctx.body = await users.getUser( data );
+      
+      let res = await users.getUser( data );
+      
+      ctx.body = res;
 
     },
   )

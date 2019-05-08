@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-    <h1 class="h3 mt-3 font-weight-normal">Sign up</h1>
+    <h1 class="h3 mt-3 font-weight-normal text-center">Sign up</h1>
     <form  @submit.prevent="onSubmit"
     class="form-signin">
         <div v-if="errors.length">

@@ -14,7 +14,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/about">About</router-link>
         </li>
-
+        <li class="nav-item">
+          <router-link class="nav-link" to="/pictures">Pictures</router-link>
+        </li>
 
       </b-navbar-nav>
 
@@ -65,7 +67,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 .navbar-brand{

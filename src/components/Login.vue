@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="h3 mt-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mt-3 font-weight-normal text-center">Please sign in</h1>
     <div v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul class="list-unstyled">

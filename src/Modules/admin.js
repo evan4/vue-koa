@@ -28,7 +28,10 @@ const admin = {
       state.users = payload;
     },
     authuser(state, authData) {
-      const { email, type } = authData;
+      const {email} = authData.user;
+      const { token, type } = authData;
+
+      state.token = token;
       state.email = email;
 
       if (type === 'singin') {
@@ -43,14 +46,17 @@ const admin = {
       }
     },
     logoutuser(state) {
+      state.token = '';
       state.email = '';
+
+      localStorage.removeItem('token');
       localStorage.removeItem('email');
       router.push('/');
     },
   },
   actions: {
     refreshToken({ commit }) {
-      const email = localStorage.getItem('email');
+      const email = '';
       if (email) {
         const authData = {
           email,
@@ -81,7 +87,10 @@ const admin = {
               ...response.data,
               type: 'singin',
             });
-            localStorage.setItem('email', response.data.email);
+
+            localStorage.setItem('email', response.data.user.email);
+            localStorage.setItem('token', response.data.token);
+
           } else {
             commit('authFailed');
           }
