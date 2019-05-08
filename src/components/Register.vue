@@ -41,6 +41,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   data() {
+
     return {
       errors: false,
       formData: {
@@ -49,35 +50,48 @@ export default {
         password: '',
       },
     };
+
   },
   computed: {
-    ...mapGetters('admin', ['authFailed']),
+    ...mapGetters( 'admin', [ 'authFailed' ] ),
   },
   methods: {
     onSubmit() {
+
       this.errors = [];
-      if (!this.formData.name) {
-        this.errors.push('Name required.');
+      if ( !this.formData.name ) {
+
+        this.errors.push( 'Name required.' );
+
       }
-      if (!this.formData.email) {
-        this.errors.push('Email required.');
+      if ( !this.formData.email ) {
+
+        this.errors.push( 'Email required.' );
+
       }
-      if (!this.formData.password) {
-        this.errors.push('Password required.');
+      if ( !this.formData.password ) {
+
+        this.errors.push( 'Password required.' );
+
       }
-      if (!this.errors.length) {
-        this.$store.dispatch('admin/singup', this.formData);
+      if ( !this.errors.length ) {
+
+        this.$store.dispatch( 'admin/singup', this.formData );
+
       }
+
     },
   },
   destroyed() {
+
     this.errors = [];
     this.formData = {
       name: '',
       email: '',
       password: '',
     };
-    this.$store.commit('admin/authFailed', 'reset');
+    this.$store.commit( 'admin/authFailed', 'reset' );
+
   },
 };
 </script>

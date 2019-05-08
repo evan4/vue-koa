@@ -1,16 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
 import Home from './components/Home.vue';
+import About from './components/About.vue';
 import Pictures from './components/Pictures.vue';
 import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import Dashboard from './components/Dashboard.vue';
 import NotFound from './components/404/index.vue';
-import store from './store';
 
-Vue.use(Router);
+Vue.use( Router );
 
-const routes = new Router({
+const routes = new Router( {
   mode: 'history',
   routes: [
     {
@@ -26,10 +27,7 @@ const routes = new Router({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: About,
     },
     {
       path: '/login',
@@ -52,22 +50,37 @@ const routes = new Router({
       component: NotFound,
     },
   ],
-});
+} );
 
 // защита роутеров Navigation Guards
-routes.beforeEach((to, from, next) => {
-  let token = localStorage.getItem('token')
-  if (to.fullPath === '/login') {
-    if (token !== null) {
-      next('/dashboard');
+routes.beforeEach( (
+  to, from, next,
+) => {
+
+  const token = localStorage.getItem( 'token' );
+
+  if ( to.fullPath === '/login' ) {
+
+    if ( token !== null ) {
+
+      next( '/dashboard' );
+
     }
+
   }
-  if (to.fullPath === '/dashboard') {
-    if (token === null) {
-      next('/login');
+
+  if ( to.fullPath === '/dashboard' ) {
+
+    if ( token === null ) {
+
+      next( '/login' );
+
     }
+
   }
+
   next();
-});
+
+} );
 
 export default routes;

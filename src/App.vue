@@ -48,15 +48,19 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  created(){
-    this.$store.dispatch('admin/refreshToken')
+  created() {
+
+    this.$store.dispatch( 'admin/refreshToken' );
+
   },
   computed: {
-      ...mapGetters('admin', ['isAuth'])
+    ...mapGetters( 'admin', [ 'isAuth' ] ),
   },
   methods: {
     logoutuser() {
-      this.$store.commit('admin/logoutuser');
+
+      this.$store.commit( 'admin/logoutuser' );
+
     },
   },
 };

@@ -10,128 +10,195 @@ const admin = {
     authFailed: false,
   },
   getters: {
-    isAuth(state){
-      return state.token ? true : false;
+    isAuth( state ) {
+
+      return !!state.token;
+
     },
-    authFailed(state) {
+    authFailed( state ) {
+
       return state.authFailed;
+
     },
-    users(state) {
+    users( state ) {
+
       return state.users;
+
     },
   },
   mutations: {
-    getUsers(state, payload) {
+    getUsers( state, payload ) {
+
       state.users = payload;
+
     },
-    authuser(state, authData) {
-      const {email} = authData.user;
+    authuser( state, authData ) {
+
+      const { email } = authData.user;
       const { token, type } = authData;
 
       state.token = token;
       state.email = email;
 
-      if (type === 'singin') {
-        router.push('dashboard');
+      if ( type === 'singin' ) {
+
+        router.push( 'dashboard' );
+
       }
+
     },
-    authFailed(state, type) {
-      if (type === 'reset') {
+    authFailed( state, type ) {
+
+      if ( type === 'reset' ) {
+
         state.authFailed = false;
+
       } else {
+
         state.authFailed = true;
+
       }
+
     },
-    logoutuser(state) {
+    logoutuser( state, type ) {
+
       state.token = '';
       state.email = '';
 
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
-      router.push('/');
+      localStorage.removeItem( 'token' );
+      localStorage.removeItem( 'email' );
+
+      if ( type !== 'refresh' ) {
+
+        router.push( '/' );
+
+      }
+
     },
-    refreshToken(state, payload){
-      state.token = localStorage.getItem('token');
-      state.email = localStorage.getItem('email');
-    }
+    refreshToken( state ) {
+
+      state.token = localStorage.getItem( 'token' );
+      state.email = localStorage.getItem( 'email' );
+
+    },
   },
   actions: {
-    refreshToken({ commit }) {
-      const token = localStorage.getItem('token');
-      
-      if (token) {
-        
-        axios.post('http://127.0.0.1:3000/verify',{
-          headers: {Authorization: `Bearer ${token}`}
-        })
-        .then((response) => {
-          if(response === false){
-            commit('logoutuser');
-          }else{
-            commit('refreshToken');
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+
+    // проеерка токена на сервере при обновлении странцы
+    refreshToken( { commit } ) {
+
+      const token = localStorage.getItem( 'token' );
+
+      if ( token ) {
+
+        axios.post( 'http://127.0.0.1:3000/verify', { refresh: true }, {
+          headers: { Authorization: `Bearer ${token}` },
+        } )
+          .then( ( response ) => {
+            
+            // если токен неверный, тогда удалить из localstorage данные о токене
+            if ( response.data === false ) {
+
+              commit( 'logoutuser' );
+
+            } else {
+
+              commit( 'refreshToken' );
+
+            }
+
+          } )
+          .catch( ( error ) => {
+
+            console.log( error );
+
+          } );
+
       }
-      
+
     },
 
     // получение списка пользователей
-    getUsers({ commit }) {
-      axios.get('http://127.0.0.1:3000/users')
-        .then((response) => {
-          commit('getUsers', response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    getUsers( { commit } ) {
+
+      axios.get( 'http://127.0.0.1:3000/users' )
+        .then( ( response ) => {
+
+          commit( 'getUsers', response.data );
+
+        } )
+        .catch( ( error ) => {
+
+          console.log( error );
+
+        } );
+
     },
 
     // аунтефикация пользователя в системе
-    singin({ commit }, payload) {
-      axios.post('http://127.0.0.1:3000/user', {
+    singin( { commit }, payload ) {
+
+      axios.post( 'http://127.0.0.1:3000/user', {
         ...payload,
-      })
-        .then((response) => {
-          if (response.data) {
-            commit('authuser', {
+      } )
+        .then( ( response ) => {
+
+          if ( response.data ) {
+
+            commit( 'authuser', {
               ...response.data,
               type: 'singin',
-            });
+            } );
 
-            localStorage.setItem('email', response.data.user.email);
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem( 'email', response.data.user.email );
+            localStorage.setItem( 'token', response.data.token );
 
           } else {
-            commit('authFailed');
+
+            commit( 'authFailed' );
+
           }
-        })
-        .catch((error) => {
-          commit('authFailed');
-        });
+
+        } )
+        .catch( ( ) => {
+
+          commit( 'authFailed' );
+
+        } );
+
     },
 
     // создание нового пользователя
-    singup({ commit }, payload) {
-      axios.post('http://127.0.0.1:3000/singup', {
+    singup( { commit }, payload ) {
+
+      axios.post( 'http://127.0.0.1:3000/singup', {
         ...payload,
-      })
-        .then((response) => {
-          if (response.data) {
-            commit('authuser', {
+      } )
+        .then( ( response ) => {
+
+          if ( response.data ) {
+
+            commit( 'authuser', {
               ...response.data,
               type: 'singin',
-            });
-            localStorage.setItem('email', response.data.email);
+            } );
+
+            localStorage.setItem( 'email', response.data.user.email );
+            localStorage.setItem( 'token', response.data.token );
+
           } else {
-            commit('authFailed');
+
+            commit( 'authFailed' );
+
           }
-        })
-        .catch((error) => {
-          commit('authFailed');
-        });
+
+        } )
+        .catch( ( ) => {
+
+          commit( 'authFailed' );
+
+        } );
+
     },
   },
 };

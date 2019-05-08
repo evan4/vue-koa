@@ -25,10 +25,12 @@ import { mapGetters } from 'vuex';
 
 export default {
   created() {
-    this.$store.dispatch('admin/getUsers');
+
+    this.$store.dispatch( 'admin/getUsers' );
+
   },
   computed: {
-    ...mapGetters('admin', ['users']),
+    ...mapGetters( 'admin', [ 'users' ] ),
   },
 };
 </script>

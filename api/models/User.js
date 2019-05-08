@@ -29,13 +29,15 @@ class User {
       .then( ( res ) => {
 
         const result = res.rows[0];
-        
+
         // сравнение пароля из базы и введенного пользователем на идентичность
         const match = bcrypt.compareSync( password, result.password );
-        
+
         if ( match ) {
-            delete result.password;
-            return result;
+
+          delete result.password;
+          return result;
+
         }
 
         return null;

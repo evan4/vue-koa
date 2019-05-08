@@ -31,7 +31,7 @@ yarn run serve
 yarn run build
 ```
 
-### Запуск eslint и исправление ошибок.
+### Запуск eslint.
 ```
 yarn run lint
 ```

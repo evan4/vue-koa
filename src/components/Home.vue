@@ -5,7 +5,8 @@
         <div class="container">
           <h1 class="jumbotron-heading">Superpowers For Entrepreneurs</h1>
           <p class="lead text-muted">
-            <span class="xlarge-line-break">Consulting.com breaks business down to basic building blocks</span>
+            <span class="xlarge-line-break">Consulting.com breaks business down to basic
+               building blocks</span>
             (like Lego) and tells you how to assemble them for success.
           </p>
         </div>
@@ -68,42 +69,52 @@ import { mapGetters } from 'vuex';
 
 export default {
   data() {
+
     return {
       title: '',
       videoId: '',
     };
+
   },
   created() {
-    this.$store.dispatch('pictures/getPictures', {
+
+    this.$store.dispatch( 'pictures/getPictures', {
       limit: 3,
-    });
-    this.$store.dispatch('videos/getVideos', {
+    } );
+    this.$store.dispatch( 'videos/getVideos', {
       limit: 3,
-    });
+    } );
+
   },
   methods: {
-    showVideo(id, title) {
+    showVideo( id, title ) {
+
       this.$refs.modal.show();
       this.title = title;
       this.videoId = id;
+
     },
   },
   computed: {
-    ...mapGetters('pictures', ['pictures']),
-    ...mapGetters('videos', ['videos']),
+    ...mapGetters( 'pictures', [ 'pictures' ] ),
+    ...mapGetters( 'videos', [ 'videos' ] ),
   },
   filters: {
-    convert(str) {
+    convert( str ) {
+
       let strNew = str;
-      strNew = str.replace(/&amp;/g, '&');
-      strNew = str.replace(/&gt;>/g, '>');
-      strNew = str.replace(/&lt;/g, '<');
-      strNew = str.replace(/&quot;/g, '"');
-      strNew = str.replace(/&#39;/g, "'");
+      strNew = str.replace( /&amp;/g, '&' );
+      strNew = str.replace( /&gt;>/g, '>' );
+      strNew = str.replace( /&lt;/g, '<' );
+      strNew = str.replace( /&quot;/g, '"' );
+      strNew = str.replace( /&#39;/g, "'" );
       return strNew;
+
     },
-    dateFormat(date) {
-      return date.substring(0, 10);
+    dateFormat( date ) {
+
+      return date.substring( 0, 10 );
+
     },
   },
 };
@@ -119,16 +130,23 @@ export default {
   display: block;
 }
 .videoWrapper {
-	position: relative;
-	padding-bottom: 56.25%; /* 16:9 */
-	padding-top: 25px;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
   height: 0;
 }
 .video{
   position: absolute;
-	top: 0;
+  top: 0;
   left: 0;
-	width: 100%;
+  width: 100%;
   height: 100%;
 }
+
+@media (min-width: 1200px) {
+  .box-shadow{
+    max-height: 200px;
+  }
+}
+
 </style>

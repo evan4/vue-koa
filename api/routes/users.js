@@ -16,11 +16,11 @@ router.get( '/users', async ( ctx ) => {
   .post(
     '/verify', koaBody( { multipart: true } ),
     async ( ctx ) => {
-      
-      const token = ctx.request.headers["authorization"]
 
-      let res = await users.verufyUser( token );
+      const token = ctx.request.headers.authorization;
       
+      const res = await users.verufyUser( token );
+
       ctx.body = res;
 
     },
@@ -30,9 +30,9 @@ router.get( '/users', async ( ctx ) => {
     async ( ctx ) => {
 
       const data = ctx.request.body;
-      
-      let res = await users.getUser( data );
-      
+
+      const res = await users.getUser( data );
+
       ctx.body = res;
 
     },
